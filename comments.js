@@ -14,36 +14,45 @@ export const comments = (state = [], action) => {
             }, ...state];
             break;
         case EDIT_COMMENT:
-            return Object.assign({}, state, {
-                comments: state.comments.map(comment => {
-                if(comment.id === action.id){
-                    return {...comment, text: action.text}
-                }
+            return state.map(comment => {
+                if (comment.id === action.id) {
+                    return { ...state, text: action.text}
+                    }
                 return comment;
-                })
             });
+
+            // return Object.assign({}, state, {
+            //     comments: state.comments.map(comment => {
+            //     if (comment.id === action.id) {
+            //         return {...comment, text: action.text}
+            //     }
+            //     return comment;
+            //     })
+            // });
 
         case THUMB_UP_COMMENT:
-        return state.map(comment => {
-            if (comment.id === action.id) {
-                return { ...state, votes: comment.votes + 1 };
-                }
-            return comment;
-            }); 
+            return state.map(comment => {
+                if (comment.id === action.id) {
+                    return { ...state, votes: comment.votes + 1 };
+                    }
+                return comment;
+            });
 
         case THUMB_DOWN_COMMENT:
-        return state.map(comment => {
-            if (comment.id === action.id) {
-                return { ...state, votes: comment.votes - 1 };
-                }
-            return comment;
-            }); 
+            return state.map(comment => {
+                if (comment.id === action.id) {
+                    return { ...state, votes: comment.votes - 1 };
+                    }
+                return comment;
+            });
 
         case REMOVE_COMMENT:
-            return Object.assign({}, state, {
-                comments: state.comments.filter(comment => comment.id !== action.id)
-            });
-        default:
-            return state;
+            return state.filter(comment => comment.id !== action.id)
+
+        //     return Object.assign({}, state, {
+        //         comments: state.comments.filter(comment => comment.id !== action.id)
+        //     });
+        // default:
+        //     return state;
     }
 }
